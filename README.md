@@ -31,6 +31,11 @@ To deploy this wordpress kubernetes application with a MySQL backend perform the
 
 You can now enter to "localhost:[xxxx]" and enjoy your wordpress application.
 
+
+--- Application Diagram ---
+
+![Kubernetes DevOps](https://user-images.githubusercontent.com/78265698/168189200-aa7404d6-1eb6-4af4-b1b8-5f43264da726.jpg)
+
 --- Rolling Updates --- 
 
 For the Rolling Update we will update the version of MySQL from 5.7 to MySQL 8.0
