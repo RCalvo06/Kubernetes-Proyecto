@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - name: wordpress-container
+        image: wordpress
+        ports:
+        - containerPort: 80
+        env:
+          - name: WORDPRESS_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: WORDPRESS_DB_HOST
+                name: proyecto
+          - name: WORDPRESS_DB_USER
+            valueFrom:
+              configMapKeyRef:
+                key: WORDPRESS_DB_USER
+                name: proyecto
+          - name: WORDPRESS_DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: WORDPRESS_DB_NAME
+                name: proyecto
+          - name: WORDPRESS_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: WORDPRESS_DB_PASSWORD
+                name: proyecto
+        volumeMounts:
+            - mountPath: /var/www/html
+              name: proyecto-pvc
+      volumes:
+        - name: proyecto-pvc
+          persistentVolumeClaim:
+            claimName: proyecto-fe-pvc
